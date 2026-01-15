@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Pathway+Gothic+One&display=swap');
+
+@font-face {
+  font-family: 'Garet-Bold';
+  src: url('fonts/Garet-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+.left-panel {
+    width: 50%;
+    padding: 40px;
+    background: #1f1f1f;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.right-panel {
+    width: 50%;
+    padding: 40px;
+    background: #b6c2c2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    cursor: pointer;
+    text-align: center;
+    font-family: "Pathway Gothic One", sans-serif;
+
+    transition: background-color 0.3s ease;
+
+    position: relative;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+    height: 50vh;
+  }
+}
+
+.right-panel:hover {
+  background-color: #ccd4d4;
+}
+
+#right-panel-content {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  width: 100%;
+}
+
+.state {
+  display: none;
+}
+
+.right-panel.idle .idle-state {
+  display: block;
+}
+
+.right-panel.idle #output {
+  display: none;
+}
+
+.right-panel.recording .recording-state {
+  display: block;
+  margin-top: 5%;
+}
+
+.right-panel.result .result-state {
+  display: block;
+}
+
+#idle-text-1 {
+  font-size: 4rem;
+  color: #1f1f1f;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-size: 7rem;
+  color: #1f1f1f;
+  margin-top: 2rem;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 300,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+#output {
+  font-family: "Garet-Bold", sans-serif;
+  font-size: clamp(5rem, 30vw, 15rem);
+  color: #ff3131;
+  line-height: 1.0;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.dots span {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  border-radius: 50%;
+  animation: pulse 1s infinite;
+}
+
+.dots span:nth-child(1) { animation-delay: 0s; }
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+.dots span:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes pulse {
+  0%, 80%, 100% { transform: scale(1); }
+  40% { transform: scale(1.5); }
+}
+
+#recording-text {
+  font-size: 2rem;
+  color: #1f1f1f;
+  margin-top: 2rem;
+}
+
+#result-text-1 {
+  font-size: clamp(0.5rem, 5vw, 2.5rem);
+  color: #1f1f1f;
+}
+
+#result-text-2 {
+  font-size: clamp(0.5rem, 5vw, 2.5rem);
+  color: #1f1f1f;
+  margin-top: clamp(0.5rem, 2vw, 1rem);
+}
+
+#result-text-3 {
+  font-size: clamp(0.5rem, 2.5vw, 2rem);
+  color: #1f1f1f;
+  margin-top: clamp(0.5rem, 2.5vw, 2rem);
+}
