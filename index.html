@@ -9,17 +9,20 @@
 </head>
 <body>
     <div class="container">
-        <div class="left-panel"></div>
+        <div class="left-panel">
+            <img src="images/logo.png" alt="logo">
+            <p class="blurb">struggling with *over<span class="wait">wait</span>ness??? meet <span class="wait">wait</span>tracker, your personal <span class="wait">wait</span> trainer that listens in and keeps count of how many times you say <span class="wait">"wait"</span>. <span class="wait">wait</span> no more—start your <span class="wait">wait</span>-loss journey today!!</p>
+            <p class="defn">*<strong>o·ver·wait·ness</strong> /ˌoʊvərˈweɪtnəs/ <span style="font-style: italic;">noun.</span></br>a speech-pattern disorder characterized by an abnormally excessive verbalization of the word "wait", despite no actual waiting being required</p>
+        </div>
         <div class="right-panel idle" id="right-panel">
             <div id="right-panel-content">
                 <p id="output"></p>
 
                 <div class="state idle-state">
-                    <p id="idle-text-1">CLICK TO START</br>LISTENING</p>
+                    <p id="idle-text">CLICK TO START</br>LISTENING</p>
                     <span class="material-symbols-outlined">
                         ear_sound
                     </span>
-                    <p id="idle-text-2">waittracker will keep a live count of</br>the number of times you say "wait"</p>
                 </div>
 
                 <div class="state recording-state">
@@ -39,6 +42,13 @@
                     <p id="result-text-3">CLICK TO RESTART</p>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="ios-popup" id="ios-popup">
+        <div class="ios-popup-content">
+            <div id="close-ios-popup">&times;</div>
+            <p id="ios-popup-header">this is ur sign to</br>switch to android.</p>
+            <p id="ios-popup-text">unfortunately, waittracker is NOT gonna work on ur iphone/ipad bcs ios is skill issue (seriously). ur mac should work just fine tho!! :D</p>
         </div>
     </div>
     <script src="script.js"></script>

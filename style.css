@@ -1,6 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Pathway+Gothic+One&display=swap');
 
 @font-face {
+  font-family: 'Garet';
+  src: url('fonts/Garet-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'Garet-Bold';
   src: url('fonts/Garet-Bold.ttf') format('truetype');
   font-weight: normal;
@@ -25,12 +32,29 @@ html, body {
 
 .left-panel {
     width: 50%;
-    padding: 40px;
+    padding: 48px;
     background: #1f1f1f;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.wait {
+  color: #ff3131;
+}
+
+.blurb {
+  color: #fff;
+  font-family: "Garet";
+  font-size:
+  margin-top: 5%;
+}
+
+.defn {
+  color: #fff;
+  font-family: serif;
+  margin-top: 5%;
 }
 
 .right-panel {
@@ -51,7 +75,7 @@ html, body {
     position: relative;
 }
 
-@media (max-width: 768px) {
+@media (orientation: portrait) {
   .container {
     flex-direction: column;
   }
@@ -96,7 +120,7 @@ html, body {
   display: block;
 }
 
-#idle-text-1 {
+#idle-text {
   font-size: 4rem;
   color: #1f1f1f;
 }
@@ -166,4 +190,57 @@ html, body {
   font-size: clamp(0.5rem, 2.5vw, 2rem);
   color: #1f1f1f;
   margin-top: clamp(0.5rem, 2.5vw, 2rem);
+}
+
+.ios-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 999;
+}
+
+.ios-popup.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ios-popup-content {
+  position: relative;
+  background: white;
+  padding: 8%;
+  border-radius: 12px;
+  width: 80vw;
+  text-align: center;
+}
+
+#close-ios-popup {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+
+  font-size: 8vw;
+  cursor: pointer;
+  line-height: 1;
+}
+
+#close-ios-popup:hover {
+  opacity: 0.6;
+}
+
+#ios-popup-header {
+  font-size: 6vw;
+  color: #ff3131;
+  font-family: "Garet-Bold", sans-serif;
+}
+
+#ios-popup-text {
+  font-size: clamp(0.5rem, 4vw, 2.5rem);
+  color: #1f1f1f;
+  font-family: "Garet", sans-serif;
+  margin-top: 5%;
 }

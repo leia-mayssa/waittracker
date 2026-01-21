@@ -3,6 +3,9 @@ const transcript = document.getElementById("transcript");
 const output = document.getElementById("output");
 const timeDisplay = document.getElementById("time");
 const waitRate = document.getElementById("wait-rate");
+const iosPopup = document.getElementById("ios-popup");
+const closeIosPopup = document.getElementById("close-ios-popup");
+const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 let isListening = false;
 let startTime;
@@ -20,6 +23,11 @@ recognition.interimResults = true;
 rightPanel.addEventListener("click", toggleListening);
 
 function toggleListening() {
+    if (isIos) {
+        iosPopup.classList.add("show");
+        return;
+    }
+
     if (rightPanel.classList.contains("idle") || rightPanel.classList.contains("result")) {
         startTime = Date.now();
         recognition.start();
@@ -61,3 +69,7 @@ recognition.onresult = function (event) {
     }
     output.textContent = count
 };
+
+closeIosPopup.addEventListener("click", () => {
+  iosPopup.classList.remove("show");
+});
