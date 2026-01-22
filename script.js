@@ -70,6 +70,19 @@ recognition.onresult = function (event) {
     output.textContent = count
 };
 
+recognition.onend = () => {
+    if (isListening) {
+        setTimeout(() => {
+            try {
+                recognition.start();
+            } catch (err) {
+                console.error("Failed to restart recognition:", err);
+            }
+        }, 200);
+    }
+};
+
+
 closeIosPopup.addEventListener("click", () => {
   iosPopup.classList.remove("show");
 });
