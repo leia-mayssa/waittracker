@@ -5,6 +5,8 @@ const timeDisplay = document.getElementById("time");
 const waitRate = document.getElementById("wait-rate");
 const iosPopup = document.getElementById("ios-popup");
 const closeIosPopup = document.getElementById("close-ios-popup");
+const androidPopup = document.getElementById("android-popup");
+const closeAndroidPopup = document.getElementById("close-android-popup");
 const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
 const isAndroid = /Android/.test(navigator.userAgent);
 
@@ -41,6 +43,10 @@ function toggleListening() {
     }
 
     if (rightPanel.classList.contains("idle") || rightPanel.classList.contains("result")) {
+        if (rightPanel.classList.contains("idle") && isAndroid) {
+            androidPopup.classList.add("show");
+        }
+
         startTime = Date.now();
         count = 0;
         recognition.start();
@@ -100,4 +106,8 @@ recognition.onend = () => {
 
 closeIosPopup.addEventListener("click", () => {
   iosPopup.classList.remove("show");
+});
+
+closeAndroidPopup.addEventListener("click", () => {
+  androidPopup.classList.remove("show");
 });

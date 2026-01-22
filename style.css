@@ -208,7 +208,7 @@ html, body {
   margin-top: 5cqmin;
 }
 
-.ios-popup {
+.popup {
   position: fixed;
   inset: 0;
   display: flex;
@@ -220,12 +220,12 @@ html, body {
   z-index: 999;
 }
 
-.ios-popup.show {
+.popup.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-.ios-popup-content {
+.popup-content {
   position: relative;
   background: white;
   padding: 8%;
@@ -234,7 +234,8 @@ html, body {
   text-align: center;
 }
 
-#close-ios-popup {
+#close-ios-popup,
+#close-android-popup {
   position: absolute;
   top: 5%;
   right: 5%;
@@ -244,19 +245,22 @@ html, body {
   line-height: 1;
 }
 
-#close-ios-popup:hover {
+#close-ios-popup:hover,
+#close-android-popup:hover {
   opacity: 0.6;
 }
 
-#ios-popup-header {
+#ios-popup-header,
+#android-popup-header {
   font-size: 6vmin;
   color: #ff3131;
   font-family: "Garet-Bold", sans-serif;
 }
 
-#ios-popup-text {
+#ios-popup-text,
+#android-popup-text {
   font-size: 4vmin;
   color: #1f1f1f;
   font-family: "Garet", sans-serif;
-  margin-top: 5vmin;
+  margin-top: 4vmin;
 }
