@@ -10,8 +10,13 @@ const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
 let isListening = false;
 let startTime;
 let count = 0;
+let processedResults = 0;
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+    alert("your browser does not support speech recognition.")
+}
 
 let recognition;
 
@@ -35,6 +40,7 @@ function toggleListening() {
         // transcript.textContent = "..."
         output.textContent = 0;
         count = 0;
+        processedResults = 0;
         setState("recording");
     } else if (rightPanel.classList.contains("recording")) {
         recognition.stop();
@@ -71,11 +77,7 @@ function setState(state) {
 // };
 
 recognition.onresult = function(event) {
-    for (let i = event.resultIndex; i < event.results.length; i++) {
-        if (!event.results[i].isFinal) {
-            continue;
-        }
-
+    for (let i = processedResults; i < event.results.length; i++) {
         let text = event.results[i][0].transcript.toLowerCase().replace(/[^a-z\s]/g, " ");
         let words = text.split(/\s+/);
 
@@ -83,6 +85,10 @@ recognition.onresult = function(event) {
             if (word === "wait") {
                 count++;
             }
+        }
+
+        if (event.results[i].isFinal) {
+            processedResults = i+1;
         }
     }
 
@@ -95,7 +101,9 @@ recognition.onend = () => {
             try {
                 recognition.start();
             } catch (err) {
-                console.error("Failed to restart recognition:", err);
+                alert("error, please try again.");
+                isListening = false;
+                setState("idle");
             }
         }, 200);
     }
