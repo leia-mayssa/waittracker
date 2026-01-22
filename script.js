@@ -6,6 +6,7 @@ const waitRate = document.getElementById("wait-rate");
 const iosPopup = document.getElementById("ios-popup");
 const closeIosPopup = document.getElementById("close-ios-popup");
 const isIos = /iPad|iPhone|iPod/.test(navigator.userAgent);
+const isAndroid = /Android/.test(navigator.userAgent);
 
 let isListening = false;
 let startTime;
@@ -22,8 +23,15 @@ let recognition;
 
 recognition = new SpeechRecognition();
 
-recognition.continuous = true;
-recognition.interimResults = true;
+if (isAndroid) {
+    recognition.continuous = false;
+    recognition.interimResults = false;
+} else {
+    recognition.continuous = true;
+    recognition.interimResults = true;
+}
+
+recognition.lang = "en-US";
 
 rightPanel.addEventListener("click", toggleListening);
 
@@ -35,12 +43,11 @@ function toggleListening() {
 
     if (rightPanel.classList.contains("idle") || rightPanel.classList.contains("result")) {
         startTime = Date.now();
+        count = 0;
         recognition.start();
         isListening = true;
         // transcript.textContent = "..."
         output.textContent = 0;
-        count = 0;
-        processedResults = 0;
         setState("recording");
     } else if (rightPanel.classList.contains("recording")) {
         recognition.stop();
@@ -76,19 +83,42 @@ function setState(state) {
 //     output.textContent = count
 // };
 
-recognition.onresult = function(event) {
-    for (let i = processedResults; i < event.results.length; i++) {
-        let text = event.results[i][0].transcript.toLowerCase().replace(/[^a-z\s]/g, " ");
-        let words = text.split(/\s+/);
+// recognition.onresult = function(event) {
+//     if (!event.results[i].isFinal) {
+//             continue;
+//         }
+
+//     for (let i = processedResults; i < event.results.length; i++) {
+//         let text = event.results[i][0].transcript.toLowerCase().replace(/[^a-z\s]/g, " ");
+//         let words = text.split(/\s+/);
+
+//         for (let word of words) {
+//             if (word === "wait") {
+//                 count++;
+//             }
+//         }
+
+//         if (event.results[i].isFinal) {
+//             processedResults = i+1;
+//         }
+//     }
+
+//     output.textContent = count;
+// };
+
+recognition.onresult = (event) => {
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+        if (!event.results[i].isFinal) {
+            continue;
+        }
+
+        const text = event.results[i][0].transcript.toLowerCase().replace(/[^a-z\s]/g, " ");
+        const words = text.split(/\s+/);
 
         for (let word of words) {
             if (word === "wait") {
                 count++;
             }
-        }
-
-        if (event.results[i].isFinal) {
-            processedResults = i+1;
         }
     }
 
@@ -96,7 +126,7 @@ recognition.onresult = function(event) {
 };
 
 recognition.onend = () => {
-    if (isListening) {
+    if (isListening && isAndroid) {
         setTimeout(() => {
             try {
                 recognition.start();
